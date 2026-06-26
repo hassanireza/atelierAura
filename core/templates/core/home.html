@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Atelier Aura — Modern Web Design & Development{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'core/assets/css/home.css' %}">{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+  <div class="container">
+    <h1>Modern Web Design&nbsp;&amp;&nbsp;Development For Ambitious Brands</h1>
+    <p>We craft elegant digital experiences with refined aesthetics, high performance, and conversion-focused strategy for modern businesses.</p>
+    <a href="{% url 'contact' %}" class="button" style="margin-top:40px;">
+      Start Your Project
+      <svg class="icon icon-sm" style="margin-left:8px;" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section home-services">
+  <div class="container">
+    <h2>Services Built For Growth</h2>
+    <p class="services-intro">Every project is designed with performance, user experience, and timeless visual direction to help brands stand out online.</p>
+
+    <div class="service-box">
+
+      <!-- Card 1 -->
+      <div class="svc-card">
+        <a href="{% url 'service_web_design' %}" class="svc-image-link" tabindex="-1" aria-hidden="true">
+          <div class="svc-image-wrap">
+            <img src="{% static 'core/assets/images/service-1.jpg' %}" alt="Website Design">
+            <div class="svc-overlay">
+              <span class="svc-overlay-label">
+                Explore Service
+                <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-arrow-up-right"/></svg>
+              </span>
+            </div>
+          </div>
+        </a>
+        <div class="svc-body">
+          <h3>Website Design</h3>
+          <p>Elegant, responsive, and strategically designed websites tailored to your audience and brand identity.</p>
+          <a href="{% url 'service_web_design' %}" class="svc-link">
+            Learn more
+            <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="svc-card">
+        <a href="{% url 'service_frontend' %}" class="svc-image-link" tabindex="-1" aria-hidden="true">
+          <div class="svc-image-wrap">
+            <img src="{% static 'core/assets/images/service-2.jpg' %}" alt="Frontend Development">
+            <div class="svc-overlay">
+              <span class="svc-overlay-label">
+                Explore Service
+                <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-arrow-up-right"/></svg>
+              </span>
+            </div>
+          </div>
+        </a>
+        <div class="svc-body">
+          <h3>Frontend Development</h3>
+          <p>Fast, responsive frontend experiences engineered with modern technologies and polished interactions.</p>
+          <a href="{% url 'service_frontend' %}" class="svc-link">
+            Learn more
+            <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="svc-card">
+        <a href="{% url 'service_seo' %}" class="svc-image-link" tabindex="-1" aria-hidden="true">
+          <div class="svc-image-wrap">
+            <img src="{% static 'core/assets/images/service-3.jpg' %}" alt="SEO Optimization">
+            <div class="svc-overlay">
+              <span class="svc-overlay-label">
+                Explore Service
+                <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-arrow-up-right"/></svg>
+              </span>
+            </div>
+          </div>
+        </a>
+        <div class="svc-body">
+          <h3>SEO Optimization</h3>
+          <p>Technical optimization and search visibility improvements to help your website rank and perform better.</p>
+          <a href="{% url 'service_seo' %}" class="svc-link">
+            Learn more
+            <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section pricing">
+  <div class="container">
+    <h2>Transparent Pricing</h2>
+    <p class="pricing-desc">Flexible packages tailored for startups, creators, and growing businesses.</p>
+    <div class="grid grid-3">
+      <div class="pricing-card">
+        <div>
+          <h3>Starter</h3>
+          <ul>
+            <li><svg class="icon icon-sm" aria-hidden="true" style="color:var(--accent);margin-right:8px;flex-shrink:0;"><use href="#icon-check"/></svg>Single Page Website</li>
+            <li><svg class="icon icon-sm" aria-hidden="true" style="color:var(--accent);margin-right:8px;flex-shrink:0;"><use href="#icon-check"/></svg>Responsive Design</li>
+            <li><svg class="icon icon-sm" aria-hidden="true" style="color:var(--accent);margin-right:8px;flex-shrink:0;"><use href="#icon-check"/></svg>Basic SEO</li>
+            <li><svg class="icon icon-sm" aria-hidden="true" style="color:var(--accent);margin-right:8px;flex-shrink:0;"><use href="#icon-check"/></svg>7-Day Delivery</li>
+          </ul>
+        </div>
+        <a href="{% url 'plans' %}" class="button">Get Started</a>
+      </div>
+      <div class="pricing-card featured">
+        <div>
+          <h3>Business</h3>
+          <ul>
+            <li><svg class="icon icon-sm" aria-hidden="true" style="color:var(--accent);margin-right:8px;flex-shrink:0;"><use href="#icon-check"/></svg>Multi Page Website</li>
+            <li><svg class="icon icon-sm" aria-hidden="true" style="color:var(--accent);margin-right:8px;flex-shrink:0;"><use href="#icon-check"/></svg>Advanced UI Design</li>
+            <li><svg class="icon icon-sm" aria-hidden="true" style="color:var(--accent);margin-right:8px;flex-shrink:0;"><use href="#icon-check"/></svg>Full SEO Setup</li>
+            <li><svg class="icon icon-sm" aria-hidden="true" style="color:var(--accent);margin-right:8px;flex-shrink:0;"><use href="#icon-check"/></svg>Performance Optimization</li>
+          </ul>
+        </div>
+        <a href="{% url 'plans' %}" class="button">Choose Plan</a>
+      </div>
+      <div class="pricing-card">
+        <div>
+          <h3>Premium</h3>
+          <ul>
+            <li><svg class="icon icon-sm" aria-hidden="true" style="color:var(--accent);margin-right:8px;flex-shrink:0;"><use href="#icon-check"/></svg>Custom Web Experience</li>
+            <li><svg class="icon icon-sm" aria-hidden="true" style="color:var(--accent);margin-right:8px;flex-shrink:0;"><use href="#icon-check"/></svg>Animations &amp; Interactions</li>
+            <li><svg class="icon icon-sm" aria-hidden="true" style="color:var(--accent);margin-right:8px;flex-shrink:0;"><use href="#icon-check"/></svg>Priority Support</li>
+            <li><svg class="icon icon-sm" aria-hidden="true" style="color:var(--accent);margin-right:8px;flex-shrink:0;"><use href="#icon-check"/></svg>Full Optimization</li>
+          </ul>
+        </div>
+        <a href="{% url 'plans' %}" class="button">View Plans</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section home-cta">
+  <div class="container">
+    <h2>Ready To Build Something Exceptional?</h2>
+    <p>Let's create a premium digital experience that elevates your brand online.</p>
+    <a href="{% url 'contact' %}" class="button">
+      Let's Talk
+      <svg class="icon icon-sm" style="margin-left:8px;" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
+    </a>
+  </div>
+</section>
+
+{% endblock %}

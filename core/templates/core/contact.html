@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Atelier Aura | Contact{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'core/assets/css/contact.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="container">
+    <h1>Let's Build Something Exceptional</h1>
+    <p>Have a project in mind? We'd love to hear about it. Send us a message and we'll get back to you within 24 hours.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="contact-wrapper">
+
+      <!-- Left: Info -->
+      <div class="contact-info">
+        <h2>Get in touch with our team</h2>
+        <p>Whether you need a brand-new website, a complete redesign, or expert SEO guidance — we're here to help turn your vision into a high-performing digital experience.</p>
+
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg class="icon icon-md" aria-hidden="true"><use href="#icon-mail"/></svg>
+          </div>
+          <div class="contact-detail-text">
+            <strong>Email Us</strong>
+            <span>hello@atelieraura.com</span>
+          </div>
+        </div>
+
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg class="icon icon-md" aria-hidden="true"><use href="#icon-clock"/></svg>
+          </div>
+          <div class="contact-detail-text">
+            <strong>Response Time</strong>
+            <span>Within 24 hours, Mon–Fri</span>
+          </div>
+        </div>
+
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg class="icon icon-md" aria-hidden="true"><use href="#icon-globe"/></svg>
+          </div>
+          <div class="contact-detail-text">
+            <strong>We Work Globally</strong>
+            <span>Remote-first, serving clients worldwide</span>
+          </div>
+        </div>
+
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg class="icon icon-md" aria-hidden="true"><use href="#icon-sparkle"/></svg>
+          </div>
+          <div class="contact-detail-text">
+            <strong>Free Consultation</strong>
+            <span>Every project starts with a free discovery call</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Sticky form -->
+      <div class="contact-form-sticky">
+        <div class="contact-form">
+          <form id="contactForm" method="POST" action="{% url 'contact' %}">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input type="text" id="name" name="name" placeholder="Your full name"
+                value="{{ name|default:'' }}" required autocomplete="name">
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="your@email.com"
+                value="{{ email|default:'' }}" required autocomplete="email">
+            </div>
+            <div class="form-group">
+              <label for="message">Project Details</label>
+              <textarea id="message" name="message"
+                placeholder="Tell us about your project, goals, and timeline..."
+                required>{{ message|default:'' }}</textarea>
+            </div>
+            <button type="submit">
+              Send Message
+              <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
+            </button>
+            <div class="form-message" id="formMsg"></div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.getElementById('contactForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = e.target.querySelector('button[type="submit"]');
+  const msg = document.getElementById('formMsg');
+  btn.disabled = true;
+  btn.innerHTML = 'Sending… <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-arrow-right"/></svg>';
+  try {
+    const res = await fetch('{% url "contact" %}', {
+      method:'POST',
+      headers:{'X-Requested-With':'XMLHttpRequest'},
+      body: new FormData(e.target)
+    });
+    const json = await res.json();
+    msg.className = 'form-message ' + (json.success ? 'success' : 'error');
+    msg.textContent = json.success
+      ? "Your message has been sent. We'll be in touch soon!"
+      : (json.error || 'Something went wrong. Please try again.');
+    if (json.success) e.target.reset();
+  } catch {
+    msg.className = 'form-message error';
+    msg.textContent = 'Network error. Please try again.';
+  }
+  btn.disabled = false;
+  btn.innerHTML = 'Send Message <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-arrow-right"/></svg>';
+});
+</script>
+{% endblock %}

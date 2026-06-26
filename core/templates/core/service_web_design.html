@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Atelier Aura | Website Design Services{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'core/assets/css/home.css' %}">{% endblock %}
+
+{% block content %}
+
+<section class="service-hero" style="background:#161616;">
+  <img src="{% static 'core/assets/images/service-1.jpg' %}" alt="Website Design" class="service-hero-bg">
+  <div class="container">
+    <p style="color:var(--accent);font-weight:700;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;margin-bottom:16px;">Website Design</p>
+    <h1>Websites That Convert Visitors Into Clients</h1>
+    <p>Your website is your most powerful sales tool. We design stunning, high-performance sites that captivate your audience, build trust, and drive real business results — from the first pixel to the last CTA.</p>
+    <div class="hero-btns">
+      <a href="{% url 'plans' %}" class="btn-light">
+        View Pricing Plans
+        <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
+      </a>
+      <a href="{% url 'contact' %}" class="btn-ghost">Get a Free Consultation</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="section" style="padding:70px 0;background:linear-gradient(to bottom,#f6f3ee,#efe7de);">
+  <div class="container">
+    <div class="results-row">
+      <div class="result-stat"><div class="num">3×</div><p>Average conversion rate increase</p></div>
+      <div class="result-stat"><div class="num">98%</div><p>Client satisfaction score</p></div>
+      <div class="result-stat"><div class="num">&lt;2s</div><p>Average page load time</p></div>
+      <div class="result-stat"><div class="num">150+</div><p>Websites launched globally</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section home-services">
+  <div class="container">
+    <h2>Everything Your Website Needs to Win</h2>
+    <p class="services-intro">We don't just make websites look good — we engineer them to perform, persuade, and grow your business on autopilot.</p>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon"><svg class="icon icon-lg" aria-hidden="true"><use href="#icon-design"/></svg></div>
+        <h3>Bespoke Visual Design</h3>
+        <p>Completely custom layouts and brand identities that set you apart from every competitor in your market.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><svg class="icon icon-lg" aria-hidden="true"><use href="#icon-mobile"/></svg></div>
+        <h3>Mobile-First Responsive</h3>
+        <p>Flawlessly optimized across every screen size — from the latest iPhone to a 4K desktop monitor.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><svg class="icon icon-lg" aria-hidden="true"><use href="#icon-zap"/></svg></div>
+        <h3>Blazing Fast Performance</h3>
+        <p>Sub-2-second load times backed by optimized assets, lazy loading, and best-in-class Core Web Vitals scores.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><svg class="icon icon-lg" aria-hidden="true"><use href="#icon-target"/></svg></div>
+        <h3>Conversion Architecture</h3>
+        <p>Strategic CTAs, trust signals, and persuasive copy that guides visitors toward becoming paying customers.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><svg class="icon icon-lg" aria-hidden="true"><use href="#icon-accessibility"/></svg></div>
+        <h3>WCAG Accessibility</h3>
+        <p>Inclusive design standards that ensure your website works for every visitor, expanding your potential audience.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><svg class="icon icon-lg" aria-hidden="true"><use href="#icon-refresh"/></svg></div>
+        <h3>Ongoing Support</h3>
+        <p>Post-launch support, updates, and optimizations that keep your site performing at its peak.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="section" style="background:linear-gradient(to bottom,#f6f3ee,#efe7de);padding:100px 0;">
+  <div class="container">
+    <h2 style="text-align:center;">Our Design Process</h2>
+    <p style="text-align:center;color:var(--text-secondary);max-width:560px;margin:0 auto;">A proven, transparent workflow that keeps you informed and delivers exceptional results every time.</p>
+    <div class="process-steps">
+      <div class="step"><div class="step-num">01</div><h3>Discovery Call</h3><p>We deep-dive into your business goals, target audience, and competitive landscape.</p></div>
+      <div class="step"><div class="step-num">02</div><h3>Strategy & Wireframes</h3><p>Information architecture and user flows mapped to your conversion goals.</p></div>
+      <div class="step"><div class="step-num">03</div><h3>Visual Design</h3><p>Full high-fidelity mockups with your brand identity, colors, and typography locked in.</p></div>
+      <div class="step"><div class="step-num">04</div><h3>Development</h3><p>Pixel-perfect build with clean code, performance optimization, and CMS integration.</p></div>
+      <div class="step"><div class="step-num">05</div><h3>Launch & Grow</h3><p>Thorough QA testing, analytics setup, and a full handoff walkthrough.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="container">
+    <h2>Your Competitors Are Already Online. Are You Winning?</h2>
+    <p>Every day without a high-performing website is a day your competitors capture customers that should be yours.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:0;">
+      <a href="{% url 'plans' %}" class="btn-light" style="margin-top:36px;">
+        Start With a Plan
+        <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
+      </a>
+      <a href="{% url 'contact' %}" class="btn-ghost" style="margin-top:36px;">Talk to Us First</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

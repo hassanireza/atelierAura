@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Atelier Aura | Dashboard{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="container">
+    <h1>Welcome, {{ user.first_name|default:user.username }}</h1>
+    <p>Manage your orders and account settings.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:32px; margin-bottom:60px;">
+      <div class="card" style="padding:34px;">
+        <h3 style="font-size:1.5rem; margin-bottom:12px;">Account Details</h3>
+        <p><strong>Name:</strong> {{ user.get_full_name|default:user.username }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Member since:</strong> {{ user.date_joined|date:"F Y" }}</p>
+      </div>
+      <div class="card" style="padding:34px;">
+        <h3 style="font-size:1.5rem; margin-bottom:12px;">Quick Actions</h3>
+        <div style="display:flex; flex-direction:column; gap:12px; margin-top:8px;">
+          <a href="{% url 'plans' %}" class="button" style="margin-top:0; text-align:center;">Browse Plans</a>
+          <a href="{% url 'cart' %}" style="display:inline-block; padding:14px 24px; border-radius:14px; border:1px solid var(--border); color:var(--text-primary); font-weight:600; text-align:center; transition:var(--transition);">View Cart</a>
+        </div>
+      </div>
+    </div>
+
+    <h2 style="font-family:'Cormorant Garamond',serif; font-size:2.2rem; margin-bottom:32px;">Your Orders</h2>
+
+    {% if orders %}
+    <div style="display:flex; flex-direction:column; gap:20px;">
+      {% for order in orders %}
+      <div class="card" style="padding:28px 34px;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px;">
+          <div>
+            <p style="font-weight:700; font-size:1.05rem; margin-bottom:6px;">
+              Order #{{ order.order_id|stringformat:"s"|slice:":8"|upper }}
+            </p>
+            <p style="color:var(--text-secondary); font-size:.9rem;">{{ order.created_at|date:"F j, Y" }}</p>
+            <div style="margin-top:12px;">
+              {% for item in order.items.all %}
+              <p style="font-size:.95rem;">{{ item.plan_name }} × {{ item.quantity }} — ${{ item.price }}</p>
+              {% endfor %}
+            </div>
+          </div>
+          <div style="text-align:right;">
+            <span style="
+              display:inline-block; padding:6px 16px; border-radius:999px; font-size:.82rem; font-weight:600;
+              {% if order.status == 'paid' %}background:rgba(75,181,67,.12); color:#2f7f29;
+              {% elif order.status == 'pending' %}background:rgba(200,150,50,.12); color:#8a6020;
+              {% else %}background:rgba(181,82,67,.12); color:#9b4337;{% endif %}
+            ">{{ order.get_status_display }}</span>
+            <p style="font-size:1.1rem; font-weight:700; margin-top:10px;">${{ order.total }}</p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="card" style="padding:48px; text-align:center;">
+      <p style="color:var(--text-secondary); font-size:1.05rem; margin-bottom:24px;">You haven't placed any orders yet.</p>
+      <a href="{% url 'plans' %}" class="button" style="margin-top:0;">Explore Plans</a>
+    </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

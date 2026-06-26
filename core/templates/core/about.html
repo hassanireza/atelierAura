@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Atelier Aura | About Us{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'core/assets/css/home.css' %}">{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="container">
+    <h1>We Build the Web's Most Ambitious Brands</h1>
+    <p>Atelier Aura is a boutique web design and development studio obsessed with the intersection of beautiful design and measurable business performance.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
+      <div>
+        <h2 style="font-size:clamp(2rem,4vw,3rem);">Craft, Strategy, Results</h2>
+        <p style="margin-bottom:20px;">Founded on the belief that great design and great business results aren't mutually exclusive, Atelier Aura exists to prove that the most beautiful websites can also be the most effective ones.</p>
+        <p style="margin-bottom:20px;">We partner with startups, scale-ups, and established brands who refuse to settle for generic templates and cookie-cutter solutions. Every project is a blank canvas — and we bring both the artistry and the analytical rigor to make it exceptional.</p>
+        <p>Our studio name says it all: <em>Atelier</em> — the workshop of a master craftsman. <em>Aura</em> — the unmistakable presence that great design projects. Every site we build has both.</p>
+      </div>
+      <div class="media-item">
+        <img src="{% static 'core/assets/images/service-1.jpg' %}" alt="Our Studio" style="border-radius:28px;">
+        <div class="glass"><span>Our Studio</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:linear-gradient(to bottom,#f6f3ee,#efe7de);padding:100px 0;">
+  <div class="container" style="text-align:center;">
+    <h2>Our Values</h2>
+    <p style="color:var(--text-secondary);max-width:600px;margin:0 auto 60px;">Everything we do is guided by three core principles that never get compromised.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:28px;">
+      <div class="card" style="padding:40px 32px;">
+        <div class="feature-icon" style="margin:0 auto 20px;"><svg class="icon icon-lg" aria-hidden="true"><use href="#icon-design"/></svg></div>
+        <h3 style="font-size:1.6rem;margin-bottom:12px;">Uncompromising Craft</h3>
+        <p>We obsess over every detail — spacing, typography, transitions. Great design is in the details, and we never ship until it's right.</p>
+      </div>
+      <div class="card" style="padding:40px 32px;">
+        <div class="feature-icon" style="margin:0 auto 20px;"><svg class="icon icon-lg" aria-hidden="true"><use href="#icon-bar-chart"/></svg></div>
+        <h3 style="font-size:1.6rem;margin-bottom:12px;">Performance Obsessed</h3>
+        <p>Beautiful sites that don't convert are just expensive art. We design with data, test with rigor, and optimize for real business outcomes.</p>
+      </div>
+      <div class="card" style="padding:40px 32px;">
+        <div class="feature-icon" style="margin:0 auto 20px;"><svg class="icon icon-lg" aria-hidden="true"><use href="#icon-check"/></svg></div>
+        <h3 style="font-size:1.6rem;margin-bottom:12px;">Radical Transparency</h3>
+        <p>No jargon, no surprises. You'll always know where your project stands, what it costs, and exactly what you're getting.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section home-cta">
+  <div class="container">
+    <h2>Ready to Work With Us?</h2>
+    <p>Every great project starts with a conversation. Tell us about your vision and let's see how we can bring it to life.</p>
+    <a href="{% url 'contact' %}" class="button">Start the Conversation</a>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Atelier Aura | FAQ{% endblock %}
+{% block extra_css %}
+<style>
+.faq-list { max-width:760px; margin:0 auto; display:flex; flex-direction:column; gap:16px; }
+.faq-item { border-radius:20px; overflow:hidden; border:1px solid var(--border); }
+.faq-question {
+  width:100%; text-align:left; padding:24px 28px; background:rgba(255,255,255,.8);
+  border:none; font-family:'Inter',sans-serif; font-size:1rem; font-weight:600;
+  color:var(--text-primary); cursor:pointer; display:flex; justify-content:space-between;
+  align-items:center; gap:16px; transition:var(--transition);
+}
+.faq-question:hover { background:rgba(255,255,255,.95); color:var(--accent); }
+.faq-chevron { font-size:1.2rem; transition:transform .3s ease; flex-shrink:0; }
+.faq-answer { max-height:0; overflow:hidden; transition:max-height .4s ease, padding .3s ease; background:rgba(255,255,255,.6); }
+.faq-answer p { padding:0 28px 24px; color:var(--text-secondary); line-height:1.8; font-size:.97rem; }
+.faq-item.open .faq-chevron { transform:rotate(180deg); }
+.faq-item.open .faq-answer { max-height:400px; }
+.faq-item.open .faq-question { color:var(--accent); }
+.faq-category { font-size:.75rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); margin:48px 0 20px; text-align:center; }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="container">
+    <h1>Frequently Asked Questions</h1>
+    <p>Everything you need to know before starting your project with us. Can't find your answer? <a href="{% url 'contact' %}" style="color:var(--accent);font-weight:600;">Just ask us.</a></p>
+  </div>
+</section>
+
+<section class="section" style="padding:80px 0 120px;">
+  <div class="container">
+
+    <p class="faq-category">Getting Started</p>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question">How does the process work? <svg class="icon icon-sm faq-chevron" aria-hidden="true"><use href="#icon-chevron-down"/></svg></button>
+        <div class="faq-answer"><p>We start with a free discovery call to understand your goals. From there, we create a proposal, you choose a plan, and we kick off with a detailed strategy session. You'll have a dedicated point of contact throughout the entire project.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">How long does a website project take? <svg class="icon icon-sm faq-chevron" aria-hidden="true"><use href="#icon-chevron-down"/></svg></button>
+        <div class="faq-answer"><p>Timelines vary by project scope. A Starter single-page site typically takes 7–10 days. A Business multi-page site is 3–4 weeks. A Premium custom build is 5–8 weeks. We provide detailed timelines at the start of every project.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">What information do you need from me to start? <svg class="icon icon-sm faq-chevron" aria-hidden="true"><use href="#icon-chevron-down"/></svg></button>
+        <div class="faq-answer"><p>You'll need to provide your brand assets (logo, colors, fonts if you have them), content (text, images), and your goals. We also provide copywriting and photography sourcing services if you need them — just ask.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">Do you offer free consultations? <svg class="icon icon-sm faq-chevron" aria-hidden="true"><use href="#icon-chevron-down"/></svg></button>
+        <div class="faq-answer"><p>Absolutely. Every project starts with a free, no-obligation discovery call. We'll discuss your goals, challenges, and vision — and if we're a good fit, we'll put together a detailed proposal.</p></div>
+      </div>
+    </div>
+
+    <p class="faq-category">Pricing & Plans</p>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question">What's included in each plan? <svg class="icon icon-sm faq-chevron" aria-hidden="true"><use href="#icon-chevron-down"/></svg></button>
+        <div class="faq-answer"><p>Each plan includes design, development, and launch support. The Starter plan covers a single-page responsive site. Business covers multi-page sites with CMS and SEO. Premium covers fully custom experiences with animations, priority support, and a dedicated account manager. See the full <a href="{% url 'plans' %}" style="color:var(--accent);">plans page</a> for details.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">Are there any hidden fees? <svg class="icon icon-sm faq-chevron" aria-hidden="true"><use href="#icon-chevron-down"/></svg></button>
+        <div class="faq-answer"><p>Never. Our pricing is fully transparent. The plan price is all-inclusive for the scope defined. The only additional costs would be third-party tools you choose to subscribe to (hosting, domain, premium plugins) — which we'll advise you on upfront.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">Can I upgrade my plan mid-project? <svg class="icon icon-sm faq-chevron" aria-hidden="true"><use href="#icon-chevron-down"/></svg></button>
+        <div class="faq-answer"><p>Yes. If your scope grows, we'll create a change order that clearly outlines the additional work and cost. You'll always approve any changes before we proceed. No surprises, ever.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">Do you offer payment plans? <svg class="icon icon-sm faq-chevron" aria-hidden="true"><use href="#icon-chevron-down"/></svg></button>
+        <div class="faq-answer"><p>Yes. For Business and Premium plans, we offer 50% upfront and 50% on delivery. For larger projects, we can arrange milestone-based payments. Contact us to discuss options.</p></div>
+      </div>
+    </div>
+
+    <p class="faq-category">Technical Questions</p>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question">What technologies do you use? <svg class="icon icon-sm faq-chevron" aria-hidden="true"><use href="#icon-chevron-down"/></svg></button>
+        <div class="faq-answer"><p>We work with a modern stack: React, Next.js, Vue.js, and Django for web applications. For CMS-backed sites, we use Webflow, WordPress, or headless CMS solutions like Contentful and Sanity. We always recommend the best tool for your specific needs.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">Will my site be optimized for mobile? <svg class="icon icon-sm faq-chevron" aria-hidden="true"><use href="#icon-chevron-down"/></svg></button>
+        <div class="faq-answer"><p>Always. We build mobile-first, meaning we design and optimize for mobile devices first, then scale up to desktop. Every site is tested across 15+ device/browser combinations before launch.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">Do you handle hosting and domains? <svg class="icon icon-sm faq-chevron" aria-hidden="true"><use href="#icon-chevron-down"/></svg></button>
+        <div class="faq-answer"><p>We don't sell hosting or domains directly, but we'll recommend the best options for your needs and handle all the setup and deployment. We work with Vercel, Netlify, AWS, and traditional hosting providers.</p></div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:80px;padding:52px;background:rgba(255,255,255,.75);border-radius:28px;border:1px solid var(--border);">
+      <h2 style="font-size:2rem;margin-bottom:14px;">Still have questions?</h2>
+      <p style="color:var(--text-secondary);margin-bottom:28px;">We're happy to answer anything. Send us a message and we'll reply within 24 hours.</p>
+      <a href="{% url 'contact' %}" class="button" style="margin-top:0;">Contact Us</a>
+    </div>
+
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.querySelectorAll('.faq-question').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if(!isOpen) item.classList.add('open');
+  });
+});
+</script>
+{% endblock %}

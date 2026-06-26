@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Atelier Aura | SEO Optimization Services{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'core/assets/css/home.css' %}">{% endblock %}
+
+{% block content %}
+
+<section class="service-hero" style="background:#0c1a10;">
+  <img src="{% static 'core/assets/images/service-3.jpg' %}" alt="SEO Optimization" class="service-hero-bg">
+  <div class="container">
+    <p style="color:#4ade80;font-weight:700;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;margin-bottom:16px;">SEO Optimization</p>
+    <h1>Get Found by the Customers Who Are Already Searching for You</h1>
+    <p>Your ideal customers are on Google right now. The question is: are they finding you, or your competitor? We make sure it's you — every time.</p>
+    <div class="hero-btns">
+      <a href="{% url 'plans' %}" class="btn-light">
+        See SEO Plans
+        <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
+      </a>
+      <a href="{% url 'contact' %}" class="btn-ghost">Get a Free SEO Audit</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding:70px 0;background:linear-gradient(to bottom,#f6f3ee,#efe7de);">
+  <div class="container">
+    <div class="results-row">
+      <div class="result-stat"><div class="num">+187%</div><p>Average organic traffic increase within 6 months</p></div>
+      <div class="result-stat"><div class="num">Top 3</div><p>Average ranking position for target keywords after 90 days</p></div>
+      <div class="result-stat"><div class="num">68%</div><p>Of online experiences begin with a search engine</p></div>
+      <div class="result-stat"><div class="num">0¢</div><p>Per click once you rank organically</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section home-services">
+  <div class="container">
+    <h2>SEO That Drives Real Business Growth</h2>
+    <p class="services-intro">Forget vanity metrics. Our SEO strategy is built on technical excellence, quality content, and authority signals that Google actually rewards.</p>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon"><svg class="icon icon-lg" aria-hidden="true"><use href="#icon-search"/></svg></div>
+        <h3>Technical SEO Audit</h3>
+        <p>Full crawl analysis revealing every issue holding your site back — broken links, slow pages, duplicate content — with a clear remediation roadmap.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><svg class="icon icon-lg" aria-hidden="true"><use href="#icon-key"/></svg></div>
+        <h3>Keyword Strategy</h3>
+        <p>Deep research into the exact terms your ideal customers use, mapped to buyer intent and prioritized by opportunity vs. competition.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><svg class="icon icon-lg" aria-hidden="true"><use href="#icon-file-text"/></svg></div>
+        <h3>On-Page Optimization</h3>
+        <p>Title tags, meta descriptions, heading hierarchy, internal linking, structured data — every on-page signal optimized to rank and convert.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><svg class="icon icon-lg" aria-hidden="true"><use href="#icon-zap"/></svg></div>
+        <h3>Core Web Vitals</h3>
+        <p>Page experience signals are a direct Google ranking factor. We ensure your site meets and exceeds every performance benchmark.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><svg class="icon icon-lg" aria-hidden="true"><use href="#icon-link"/></svg></div>
+        <h3>Link Building</h3>
+        <p>Ethical, white-hat authority building through genuine outreach, digital PR, and creating link-worthy content your industry references.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><svg class="icon icon-lg" aria-hidden="true"><use href="#icon-bar-chart"/></svg></div>
+        <h3>Monthly Reporting</h3>
+        <p>Clear, jargon-free monthly reports showing rankings, traffic, conversions, and ROI — so you always know exactly what your investment returns.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="container">
+    <h2>Stop Letting Competitors Steal Your Search Traffic</h2>
+    <p>Every month without SEO is another month your competitors are ranking for keywords that should be yours.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:0;">
+      <a href="{% url 'plans' %}" class="btn-light" style="margin-top:36px;">
+        Get Started Now
+        <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
+      </a>
+      <a href="{% url 'contact' %}" class="btn-ghost" style="margin-top:36px;">Free SEO Audit</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Atelier Aura | Plans & Pricing{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'core/assets/css/home.css' %}">
+<style>
+  .plan-price { font-size:2.8rem; font-family:'Cormorant Garamond',serif; font-weight:700; color:var(--text-primary); margin:16px 0 24px; }
+  .plan-price span { font-size:1.1rem; font-weight:400; color:var(--text-secondary); }
+  .pricing-card li { display:flex; align-items:flex-start; gap:9px; }
+  .pricing-card.featured { border:2px solid var(--accent); position:relative; }
+  .featured-badge {
+    position:absolute; top:-14px; left:50%; transform:translateX(-50%);
+    background:var(--accent); color:#fff; font-size:.78rem; font-weight:700;
+    padding:4px 18px; border-radius:999px; white-space:nowrap;
+  }
+  .add-cart-btn {
+    width:100%; min-height:54px; border-radius:18px; border:none;
+    background:var(--text-primary); color:var(--surface); font-weight:600; font-size:.96rem;
+    cursor:pointer; transition:var(--transition); margin-top:auto;
+  }
+  .add-cart-btn:hover { background:var(--accent); transform:translateY(-3px); box-shadow:0 18px 30px rgba(179,135,93,.18); }
+  .toast {
+    position:fixed; bottom:28px; right:28px; background:var(--text-primary); color:#fff;
+    padding:14px 24px; border-radius:16px; font-weight:600; font-size:.95rem;
+    opacity:0; transform:translateY(12px); transition:all .35s ease; z-index:9999;
+    box-shadow:0 8px 30px rgba(22,22,22,.18);
+  }
+  .toast.show { opacity:1; transform:translateY(0); }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="container">
+    <h1>Transparent Pricing</h1>
+    <p>Flexible packages tailored for startups, creators, and growing businesses.</p>
+  </div>
+</section>
+
+<section class="section pricing">
+  <div class="container">
+    {% if plans %}
+    <div class="grid grid-3">
+      {% for plan in plans %}
+      <div class="pricing-card {% if plan.is_featured %}featured{% endif %}" style="position:relative;">
+        {% if plan.is_featured %}<span class="featured-badge">Most Popular</span>{% endif %}
+        <div>
+          <h3>{{ plan.name }}</h3>
+          <div class="plan-price">${{ plan.price }} <span>/ project</span></div>
+          <ul>
+            {% for feature in plan.features.all %}
+            <li><svg class="icon icon-sm" aria-hidden="true" style="color:var(--accent);flex-shrink:0;margin-top:2px;"><use href="#icon-check"/></svg>{ feature.text }</li>
+            {% endfor %}
+          </ul>
+        </div>
+        <button class="add-cart-btn" data-plan-id="{{ plan.id }}" data-plan-name="{{ plan.name }}">
+          Add to Cart
+        </button>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div style="text-align:center; padding:60px 0; color:var(--text-secondary);">
+      <p style="font-size:1.1rem;">Plans coming soon. <a href="{% url 'contact' %}" style="color:var(--accent); font-weight:600;">Contact us</a> for custom pricing.</p>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+<section class="section home-cta">
+  <div class="container">
+    <h2>Not Sure Which Plan?</h2>
+    <p>Let's discuss your project and find the perfect fit for your needs and budget.</p>
+    <a href="{% url 'contact' %}" class="button">Talk to Us</a>
+  </div>
+</section>
+
+<div class="toast" id="toast"></div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+const toast = document.getElementById('toast');
+function showToast(msg) {
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 3000);
+}
+
+document.querySelectorAll('.add-cart-btn').forEach(btn => {
+  btn.addEventListener('click', async () => {
+    const planId = btn.dataset.planId;
+    const planName = btn.dataset.planName;
+    btn.disabled = true;
+    btn.textContent = 'Adding...';
+
+    try {
+      const res = await fetch(`/shop/cart/add/${planId}/`, {
+        method: 'POST',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRFToken': '{{ csrf_token }}'
+        }
+      });
+      const data = await res.json();
+      if (data.success) {
+        showToast(`${planName} added to cart!`);
+        // Update cart badge
+        const badge = document.querySelector('.cart-badge');
+        if (badge) {
+          badge.textContent = data.cart_count;
+        } else {
+          const cartLink = document.querySelector('a[href*="cart"]');
+          if (cartLink) {
+            const newBadge = document.createElement('span');
+            newBadge.className = 'cart-badge';
+            newBadge.textContent = data.cart_count;
+            cartLink.appendChild(newBadge);
+          }
+        }
+      }
+    } catch { showToast('Something went wrong.'); }
+    btn.disabled = false;
+    btn.textContent = 'Add to Cart';
+  });
+});
+</script>
+{% endblock %}

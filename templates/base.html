@@ -1,0 +1,444 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Atelier Aura{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'core/assets/css/base.css' %}">
+  {% block extra_css %}{% endblock %}
+  <link rel="icon" type="image/png" href="{% static 'core/assets/images/logo.png' %}">
+  <style>
+  /* ─── ICON HELPER ─── */
+  .icon { display:inline-block; width:1em; height:1em; stroke:currentColor; fill:none; vertical-align:middle; flex-shrink:0; }
+  .icon-sm  { width:16px; height:16px; }
+  .icon-md  { width:20px; height:20px; }
+  .icon-lg  { width:24px; height:24px; }
+  .icon-xl  { width:32px; height:32px; }
+
+  /* ─── NAVBAR ─── */
+  .nav-cta {
+    display:inline-flex; align-items:center; gap:8px; justify-content:center;
+    padding:10px 22px; border-radius:14px; background:var(--text-primary);
+    color:var(--surface)!important; font-weight:600; font-size:.88rem;
+    transition:var(--transition); white-space:nowrap; border:1.5px solid transparent;
+  }
+  .nav-cta:hover { background:var(--accent)!important; color:#fff!important; transform:translateY(-2px); box-shadow:0 8px 20px rgba(179,135,93,.22); }
+  .nav-auth-sep { width:1px; height:18px; background:var(--border); margin:0 4px; }
+  .cart-link { position:relative; display:inline-flex; align-items:center; color:var(--text-secondary); transition:var(--transition); }
+  .cart-link:hover { color:var(--text-primary); }
+  .cart-badge {
+    position:absolute; top:-8px; right:-10px;
+    background:var(--accent); color:#fff; font-size:.6rem; font-weight:800;
+    min-width:17px; height:17px; border-radius:999px;
+    display:flex; align-items:center; justify-content:center; padding:0 4px;
+    pointer-events:none; line-height:1;
+  }
+
+  /* ─── DROPDOWN ─── */
+  .nav-dropdown { position:relative; }
+  .nav-dropdown-trigger {
+    display:inline-flex; align-items:center; gap:5px; cursor:pointer;
+    color:var(--text-secondary); font-size:.96rem; font-weight:500;
+    transition:var(--transition); background:none; border:none;
+    font-family:'Inter',sans-serif; padding:0; white-space:nowrap;
+  }
+  .nav-dropdown-trigger:hover { color:var(--text-primary); }
+  .dropdown-chevron { transition:transform .3s ease; flex-shrink:0; }
+  .dropdown-menu {
+    position:absolute; top:calc(100% + 16px); left:50%;
+    transform:translateX(-50%) translateY(6px);
+    background:rgba(255,253,249,.97); backdrop-filter:blur(28px);
+    border:1px solid rgba(232,223,213,.9); border-radius:22px;
+    box-shadow:0 24px 64px rgba(22,22,22,.13);
+    padding:10px; min-width:270px; list-style:none;
+    opacity:0; visibility:hidden; pointer-events:none;
+    transition:opacity .22s ease, transform .22s ease, visibility .22s;
+    z-index:3000;
+  }
+  .nav-dropdown.is-open .dropdown-menu {
+    opacity:1; visibility:visible; pointer-events:auto;
+    transform:translateX(-50%) translateY(0);
+  }
+  .nav-dropdown.is-open .dropdown-chevron { transform:rotate(180deg); }
+  .dropdown-menu li a {
+    display:flex; flex-direction:column; gap:3px;
+    padding:13px 16px; border-radius:14px;
+    transition:background .18s ease;
+  }
+  .dropdown-menu li a:hover { background:rgba(179,135,93,.07); }
+  .dropdown-menu li a strong { color:var(--text-primary); font-weight:600; font-size:.9rem; }
+  .dropdown-menu li a span { color:var(--text-secondary); font-size:.78rem; font-weight:400; margin-top:1px; }
+
+  /* ─── MESSAGES ─── */
+  .site-messages { max-width:var(--container); margin:0 auto; padding:14px 28px 0; }
+  .msg { display:flex; align-items:center; gap:10px; padding:14px 18px; border-radius:14px; margin-bottom:8px; font-weight:500; font-size:.92rem; }
+  .msg.success { background:rgba(75,181,67,.09); color:#256921; border:1px solid rgba(75,181,67,.2); }
+  .msg.error   { background:rgba(200,60,60,.07); color:#8b2f2f; border:1px solid rgba(200,60,60,.16); }
+  .msg.warning { background:rgba(200,140,30,.07); color:#7a5718; border:1px solid rgba(200,140,30,.16); }
+  .msg.info    { background:rgba(50,100,220,.06); color:#1e3d99; border:1px solid rgba(50,100,220,.14); }
+
+  /* ─── FOOTER ─── */
+  .footer-links-col { display:flex; flex-direction:column; gap:13px; list-style:none; }
+  .footer-links-col li a {
+    display:inline-flex; align-items:center; gap:9px;
+    color:var(--text-secondary); font-size:.93rem;
+    transition:color .2s ease, transform .2s ease;
+  }
+  .footer-links-col li a:hover { color:var(--accent); transform:translateX(3px); }
+  .footer-links-col li a .icon { opacity:.6; transition:opacity .2s; }
+  .footer-links-col li a:hover .icon { opacity:1; }
+  .footer-badge {
+    display:inline-flex; align-items:center; gap:7px; padding:9px 16px;
+    background:rgba(255,255,255,.55); border:1px solid rgba(255,255,255,.85);
+    border-radius:11px; font-size:.8rem; font-weight:600; color:var(--text-secondary);
+    margin-top:14px; margin-right:7px;
+  }
+  .footer-badge .icon { color:var(--accent); }
+
+  /* ─── RESPONSIVE ─── */
+  @media(max-width:900px) {
+    /* Dropdown: JS handles open/close, show inline in mobile menu */
+    .nav-dropdown .dropdown-menu {
+      position:static; transform:none!important;
+      opacity:1!important; visibility:visible!important; pointer-events:auto!important;
+      box-shadow:none; border:none; background:transparent; border-radius:0;
+      padding:4px 0 4px 20px; min-width:auto;
+      display:none;
+    }
+    .nav-dropdown.is-open .dropdown-menu { display:flex; flex-direction:column; }
+    .dropdown-menu li a { padding:10px 12px; border-radius:10px; }
+    .nav-auth-sep { display:none; }
+  }
+  </style>
+</head>
+<body>
+
+{% include 'icons.html' %}
+
+<!-- ─── NAVBAR ─── -->
+<header class="header">
+  <div class="container">
+    <nav class="navbar">
+      <div class="logo"><a href="{% url 'home' %}">Atelier Aura</a></div>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="nav-list" id="navList">
+        <li class="nav-item"><a href="{% url 'home' %}">Home</a></li>
+
+        <li class="nav-item nav-dropdown" id="servicesDropdown">
+          <button class="nav-dropdown-trigger" id="servicesBtn" aria-expanded="false">
+            Services
+            <svg class="icon icon-sm dropdown-chevron" aria-hidden="true"><use href="#icon-chevron-down"/></svg>
+          </button>
+          <ul class="dropdown-menu" id="servicesMenu" role="menu">
+            <li><a href="{% url 'service_web_design' %}" role="menuitem">
+              <strong>Website Design</strong>
+              <span>Elegant, conversion-focused sites</span>
+            </a></li>
+            <li><a href="{% url 'service_frontend' %}" role="menuitem">
+              <strong>Frontend Development</strong>
+              <span>Fast, modern, responsive builds</span>
+            </a></li>
+            <li><a href="{% url 'service_seo' %}" role="menuitem">
+              <strong>SEO Optimization</strong>
+              <span>Rank higher, grow organically</span>
+            </a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item"><a href="{% url 'plans' %}">Pricing</a></li>
+        <li class="nav-item"><a href="{% url 'about' %}">About</a></li>
+        <li class="nav-item"><a href="{% url 'contact' %}">Contact</a></li>
+
+        <li class="nav-item">
+          <a href="{% url 'cart' %}" class="cart-link" title="View Cart">
+            <svg class="icon icon-md" aria-hidden="true"><use href="#icon-cart"/></svg>
+            {% if cart_count > 0 %}<span class="cart-badge">{{ cart_count }}</span>{% endif %}
+          </a>
+        </li>
+
+        {% if user.is_authenticated %}
+          <li class="nav-item"><a href="{% url 'dashboard' %}" style="display:inline-flex;align-items:center;gap:7px;">
+            <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-user"/></svg>My Account
+          </a></li>
+          <li class="nav-item"><a href="{% url 'logout' %}" style="color:var(--text-secondary);">Logout</a></li>
+        {% else %}
+          <li class="nav-item nav-auth-sep-li"><span class="nav-auth-sep"></span></li>
+          <li class="nav-item"><a href="{% url 'auth' %}">Login</a></li>
+          <li class="nav-item"><a href="{% url 'auth' %}?tab=register" class="nav-cta">
+            Get Started
+            <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
+          </a></li>
+        {% endif %}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+{% if messages %}
+<div class="site-messages">
+  {% for message in messages %}
+  <div class="msg {{ message.tags }}">{{ message }}</div>
+  {% endfor %}
+</div>
+{% endif %}
+
+<main>{% block content %}{% endblock %}</main>
+
+<!-- ─── FOOTER ─── -->
+<footer class="fat-footer">
+  <div class="container">
+    <div class="footer-grid footer-4col">
+
+      <div class="footer-col">
+        <div class="footer-logo">Atelier Aura</div>
+        <p style="max-width:290px;line-height:1.85;margin-bottom:18px;font-size:.93rem;">Modern websites crafted for ambitious brands. Beautiful design, powerful technology, measurable results.</p>
+        <div>
+          <span class="footer-badge">
+            <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-lightning"/></svg>Fast Delivery
+          </span>
+          <span class="footer-badge">
+            <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-diamond"/></svg>Premium Quality
+          </span>
+          <span class="footer-badge">
+            <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-shield"/></svg>Secure
+          </span>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h3>Services</h3>
+        <ul class="footer-links-col">
+          <li><a href="{% url 'service_web_design' %}">
+            <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-design"/></svg>Website Design
+          </a></li>
+          <li><a href="{% url 'service_frontend' %}">
+            <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-code"/></svg>Frontend Development
+          </a></li>
+          <li><a href="{% url 'service_seo' %}">
+            <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-search"/></svg>SEO Optimization
+          </a></li>
+          <li><a href="{% url 'plans' %}">
+            <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-layers"/></svg>Pricing Plans
+          </a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3>Company</h3>
+        <ul class="footer-links-col">
+          <li><a href="{% url 'about' %}">
+            <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-sparkle"/></svg>About Us
+          </a></li>
+          <li><a href="{% url 'contact' %}">
+            <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-mail"/></svg>Contact
+          </a></li>
+          <li><a href="{% url 'faq' %}">
+            <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-file-text"/></svg>FAQ
+          </a></li>
+          {% if user.is_authenticated %}
+          <li><a href="{% url 'dashboard' %}">
+            <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-user"/></svg>My Account
+          </a></li>
+          {% else %}
+          <li><a href="{% url 'auth' %}">
+            <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-user"/></svg>Login / Sign Up
+          </a></li>
+          {% endif %}
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3>Stay in the Loop</h3>
+        <p style="font-size:.92rem;margin-bottom:0;line-height:1.7;">Design insights, launch news, and exclusive offers — straight to your inbox.</p>
+        <form class="newsletter-form" id="newsletterForm" style="flex-direction:column;gap:10px;margin-top:18px;">
+          {% csrf_token %}
+          <input type="email" id="newsletterEmail" placeholder="your@email.com" required />
+          <button type="submit" style="width:100%;display:inline-flex;align-items:center;justify-content:center;gap:8px;">
+            Subscribe
+            <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
+          </button>
+        </form>
+        <p id="newsletterMsg" style="display:none;margin-top:12px;color:var(--accent);font-weight:600;font-size:.88rem;"></p>
+      </div>
+    </div>
+
+    <div class="footer-bottom-bar">
+      <p>© 2026 Atelier Aura Studio. All rights reserved.</p>
+      <div class="footer-legal">
+        <a href="{% url 'contact' %}">Privacy Policy</a>
+        <a href="{% url 'contact' %}">Terms of Service</a>
+        <a href="{% url 'faq' %}">FAQ</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+.footer-4col {
+  grid-template-columns: 2fr 1fr 1fr 1.4fr;
+  gap: 56px;
+}
+.footer-bottom-bar {
+  display:flex; justify-content:space-between; align-items:center;
+  flex-wrap:wrap; gap:14px; margin-top:56px; padding-top:24px;
+  border-top:1px solid var(--border);
+}
+.footer-bottom-bar p { color:var(--text-secondary); font-size:.85rem; }
+.footer-legal { display:flex; gap:24px; }
+.footer-legal a { color:var(--text-secondary); font-size:.85rem; transition:color .2s; }
+.footer-legal a:hover { color:var(--accent); }
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .footer-4col { grid-template-columns:1fr 1fr; gap:40px; }
+}
+@media(max-width:600px){
+  .footer-4col { grid-template-columns:1fr; gap:32px; }
+  .footer-bottom-bar { flex-direction:column; align-items:flex-start; }
+}
+</style>
+
+<script src="{% static 'core/assets/js/main.js' %}"></script>
+<script>
+/* ─── DROPDOWN (JS-driven, works on both mouse & touch) ─── */
+(function() {
+  const dropdown = document.getElementById('servicesDropdown');
+  const btn      = document.getElementById('servicesBtn');
+  if (!dropdown || !btn) return;
+
+  let closeTimer = null;
+
+  function openMenu() {
+    clearTimeout(closeTimer);
+    dropdown.classList.add('is-open');
+    btn.setAttribute('aria-expanded', 'true');
+  }
+  function closeMenu() {
+    dropdown.classList.remove('is-open');
+    btn.setAttribute('aria-expanded', 'false');
+  }
+  function scheduleClose() {
+    closeTimer = setTimeout(closeMenu, 120);
+  }
+
+  // Desktop: hover
+  dropdown.addEventListener('mouseenter', openMenu);
+  dropdown.addEventListener('mouseleave', scheduleClose);
+
+  // Touch / click toggle (mobile & keyboard)
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dropdown.classList.contains('is-open') ? closeMenu() : openMenu();
+  });
+
+  // Close when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!dropdown.contains(e.target)) closeMenu();
+  });
+
+  // Keyboard: Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMenu();
+  });
+})();
+
+/* ─── MOBILE MENU ─── */
+(function() {
+  var toggle  = document.getElementById('menuToggle');
+  var navList = document.getElementById('navList');
+  if (!toggle || !navList) return;
+
+  function openMenu() {
+    navList.classList.add('active');
+    toggle.classList.add('active');
+    toggle.setAttribute('aria-expanded', 'true');
+    document.body.classList.add('menu-open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu() {
+    navList.classList.remove('active');
+    toggle.classList.remove('active');
+    toggle.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('menu-open');
+    document.body.style.overflow = '';
+  }
+
+  toggle.addEventListener('click', function(e) {
+    e.stopPropagation();
+    navList.classList.contains('active') ? closeMenu() : openMenu();
+  });
+
+  // Close on nav link click (mobile)
+  navList.querySelectorAll('a').forEach(function(link) {
+    link.addEventListener('click', function() {
+      if (window.innerWidth <= 900) closeMenu();
+    });
+  });
+
+  // Close on outside click
+  document.addEventListener('click', function(e) {
+    if (window.innerWidth <= 900 && !toggle.contains(e.target) && !navList.contains(e.target)) {
+      closeMenu();
+    }
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeMenu();
+  });
+
+  // Reset on resize
+  window.addEventListener('resize', function() {
+    if (window.innerWidth > 900) closeMenu();
+  });
+})();
+
+/* ─── NEWSLETTER ─── */
+(function() {
+  const form = document.getElementById('newsletterForm');
+  if (!form) return;
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('newsletterEmail').value;
+    const msg   = document.getElementById('newsletterMsg');
+    const btn   = form.querySelector('button');
+    btn.disabled = true;
+    try {
+      const res  = await fetch('{% url "newsletter_subscribe" %}', {
+        method: 'POST',
+        headers: { 'Content-Type':'application/json', 'X-CSRFToken':'{{ csrf_token }}' },
+        body: JSON.stringify({ email })
+      });
+      const data = await res.json();
+      msg.textContent   = data.message || 'Thank you!';
+      msg.style.display = 'block';
+      form.reset();
+    } catch {
+      msg.textContent   = 'Error — please try again.';
+      msg.style.display = 'block';
+    }
+    btn.disabled = false;
+  });
+})();
+
+/* ─── AUTO-DISMISS MESSAGES ─── */
+setTimeout(() => {
+  document.querySelectorAll('.msg').forEach(m => {
+    m.style.transition = 'opacity .4s';
+    m.style.opacity = '0';
+    setTimeout(() => m.remove(), 400);
+  });
+}, 5000);
+</script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

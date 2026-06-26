@@ -1,0 +1,323 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Atelier Aura | Login & Sign Up{% endblock %}
+
+{% block extra_css %}
+<style>
+.auth-page {
+  min-height: 100vh;
+  background: var(--hero-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 24px;
+}
+.auth-card {
+  width: 100%;
+  max-width: 480px;
+  background: rgba(255,255,255,.85);
+  backdrop-filter: blur(28px);
+  border: 1px solid rgba(255,255,255,.9);
+  border-radius: 32px;
+  box-shadow: 0 24px 80px rgba(22,22,22,.1);
+  overflow: hidden;
+}
+.auth-header {
+  padding: 40px 44px 28px;
+  text-align: center;
+}
+.auth-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -.04em;
+  margin-bottom: 24px;
+  display: block;
+}
+.auth-tabs {
+  display: flex;
+  background: var(--surface-alt);
+  border-radius: 16px;
+  padding: 5px;
+  gap: 4px;
+}
+.auth-tab {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  background: transparent;
+  border-radius: 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all .25s ease;
+}
+.auth-tab.active {
+  background: #fff;
+  color: var(--text-primary);
+  box-shadow: 0 2px 10px rgba(22,22,22,.08);
+}
+.auth-body {
+  padding: 0 44px 40px;
+}
+.auth-panel { display: none; }
+.auth-panel.active { display: block; }
+.auth-panel h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  margin-top: 28px;
+}
+.auth-panel .subtitle {
+  color: var(--text-secondary);
+  font-size: .92rem;
+  margin-bottom: 28px;
+}
+.auth-field { margin-bottom: 18px; }
+.auth-field label {
+  display: block;
+  font-size: .85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 7px;
+  letter-spacing: .01em;
+}
+.auth-field input {
+  width: 100%;
+  border: 1.5px solid var(--border);
+  background: rgba(255,255,255,.95);
+  border-radius: 14px;
+  min-height: 52px;
+  padding: 13px 16px;
+  font-size: .96rem;
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  transition: all .25s ease;
+  box-sizing: border-box;
+}
+.auth-field input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(179,135,93,.12);
+  background: #fff;
+}
+.auth-field input::placeholder { color: #b0a89f; }
+.auth-field .field-error {
+  color: #9b4337;
+  font-size: .8rem;
+  margin-top: 5px;
+  font-weight: 500;
+}
+.auth-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.auth-submit {
+  width: 100%;
+  min-height: 54px;
+  border: none;
+  border-radius: 16px;
+  background: var(--text-primary);
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  font-size: .96rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .3s ease;
+  margin-top: 8px;
+  letter-spacing: .01em;
+}
+.auth-submit:hover {
+  background: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(179,135,93,.22);
+}
+.auth-submit:active { transform: translateY(0); }
+.auth-divider {
+  text-align: center;
+  margin: 20px 0 16px;
+  color: var(--text-secondary);
+  font-size: .82rem;
+  position: relative;
+}
+.auth-divider::before, .auth-divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 40%;
+  height: 1px;
+  background: var(--border);
+}
+.auth-divider::before { left: 0; }
+.auth-divider::after { right: 0; }
+.auth-switch {
+  text-align: center;
+  margin-top: 20px;
+  color: var(--text-secondary);
+  font-size: .88rem;
+}
+.auth-switch a, .auth-switch button.link-btn {
+  color: var(--accent);
+  font-weight: 700;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: .88rem;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.auth-switch button.link-btn:hover { color: var(--accent-hover); }
+.form-errors-global {
+  background: rgba(200,60,60,.07);
+  border: 1px solid rgba(200,60,60,.18);
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin-bottom: 18px;
+  color: #8b2f2f;
+  font-size: .88rem;
+  font-weight: 500;
+}
+@media(max-width:560px){
+  .auth-card { border-radius: 24px; }
+  .auth-header { padding: 32px 28px 22px; }
+  .auth-body { padding: 0 28px 32px; }
+  .auth-row { grid-template-columns: 1fr; gap: 0; }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="auth-page">
+  <div class="auth-card">
+
+    <div class="auth-header">
+      <a href="{% url 'home' %}" class="auth-logo">Atelier Aura</a>
+      <div class="auth-tabs">
+        <button class="auth-tab {% if active_tab == 'login' %}active{% endif %}" id="tabLogin" onclick="switchTab('login')">Log In</button>
+        <button class="auth-tab {% if active_tab == 'register' %}active{% endif %}" id="tabRegister" onclick="switchTab('register')">Create Account</button>
+      </div>
+    </div>
+
+    <div class="auth-body">
+
+      <!-- LOGIN PANEL -->
+      <div class="auth-panel {% if active_tab == 'login' %}active{% endif %}" id="panelLogin">
+        <h2>Welcome back</h2>
+        <p class="subtitle">Log in to manage your projects and orders.</p>
+
+        {% if active_tab == 'login' and login_form.non_field_errors %}
+        <div class="form-errors-global">{{ login_form.non_field_errors.0 }}</div>
+        {% endif %}
+
+        <form method="POST">
+          {% csrf_token %}
+          <input type="hidden" name="action" value="login">
+
+          <div class="auth-field">
+            <label for="{{ login_form.username.id_for_label }}">Username</label>
+            <input type="text" name="username" id="{{ login_form.username.id_for_label }}"
+              placeholder="Enter your username"
+              value="{{ login_form.username.value|default:'' }}" autocomplete="username">
+            {% if login_form.username.errors %}<p class="field-error">{{ login_form.username.errors.0 }}</p>{% endif %}
+          </div>
+
+          <div class="auth-field">
+            <label for="{{ login_form.password.id_for_label }}">Password</label>
+            <input type="password" name="password" id="{{ login_form.password.id_for_label }}"
+              placeholder="Enter your password" autocomplete="current-password">
+            {% if login_form.password.errors %}<p class="field-error">{{ login_form.password.errors.0 }}</p>{% endif %}
+          </div>
+
+          <button type="submit" class="auth-submit">Log In <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-arrow-right"/></svg></button>
+        </form>
+
+        <div class="auth-switch">
+          Don't have an account?
+          <button class="link-btn" onclick="switchTab('register')">Sign up for free</button>
+        </div>
+      </div>
+
+      <!-- REGISTER PANEL -->
+      <div class="auth-panel {% if active_tab == 'register' %}active{% endif %}" id="panelRegister">
+        <h2>Create account</h2>
+        <p class="subtitle">Join Atelier Aura and start building your digital presence.</p>
+
+        {% if active_tab == 'register' and register_form.errors %}
+        <div class="form-errors-global">Please correct the errors below.</div>
+        {% endif %}
+
+        <form method="POST" action="?tab=register">
+          {% csrf_token %}
+          <input type="hidden" name="action" value="register">
+
+          <div class="auth-row">
+            <div class="auth-field">
+              <label>First Name</label>
+              <input type="text" name="first_name" placeholder="First name"
+                value="{{ register_form.first_name.value|default:'' }}" autocomplete="given-name">
+              {% if register_form.first_name.errors %}<p class="field-error">{{ register_form.first_name.errors.0 }}</p>{% endif %}
+            </div>
+            <div class="auth-field">
+              <label>Last Name</label>
+              <input type="text" name="last_name" placeholder="Last name"
+                value="{{ register_form.last_name.value|default:'' }}" autocomplete="family-name">
+              {% if register_form.last_name.errors %}<p class="field-error">{{ register_form.last_name.errors.0 }}</p>{% endif %}
+            </div>
+          </div>
+
+          <div class="auth-field">
+            <label>Username</label>
+            <input type="text" name="username" placeholder="Choose a username"
+              value="{{ register_form.username.value|default:'' }}" autocomplete="username">
+            {% if register_form.username.errors %}<p class="field-error">{{ register_form.username.errors.0 }}</p>{% endif %}
+          </div>
+
+          <div class="auth-field">
+            <label>Email Address</label>
+            <input type="email" name="email" placeholder="your@email.com"
+              value="{{ register_form.email.value|default:'' }}" autocomplete="email">
+            {% if register_form.email.errors %}<p class="field-error">{{ register_form.email.errors.0 }}</p>{% endif %}
+          </div>
+
+          <div class="auth-row">
+            <div class="auth-field">
+              <label>Password</label>
+              <input type="password" name="password1" placeholder="Create password" autocomplete="new-password">
+              {% if register_form.password1.errors %}<p class="field-error">{{ register_form.password1.errors.0 }}</p>{% endif %}
+            </div>
+            <div class="auth-field">
+              <label>Confirm</label>
+              <input type="password" name="password2" placeholder="Repeat password" autocomplete="new-password">
+              {% if register_form.password2.errors %}<p class="field-error">{{ register_form.password2.errors.0 }}</p>{% endif %}
+            </div>
+          </div>
+
+          <button type="submit" class="auth-submit">Create Account <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-arrow-right"/></svg></button>
+        </form>
+
+        <div class="auth-switch">
+          Already have an account?
+          <button class="link-btn" onclick="switchTab('login')">Log in</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function switchTab(tab) {
+  document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.auth-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('tab' + tab.charAt(0).toUpperCase() + tab.slice(1)).classList.add('active');
+  document.getElementById('panel' + tab.charAt(0).toUpperCase() + tab.slice(1)).classList.add('active');
+  history.replaceState(null, '', '?tab=' + tab);
+}
+</script>
+{% endblock %}

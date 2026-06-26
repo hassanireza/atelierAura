@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Atelier Aura | Order Confirmed{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="container">
+    <h1>Order Confirmed!</h1>
+    <p>Thank you for your order. We'll be in touch shortly to get started.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container" style="max-width:680px; text-align:center;">
+    <div class="card" style="padding:52px 42px;">
+      <div style="font-size:3.5rem; margin-bottom:24px;">🎉</div>
+      <h2 style="font-family:'Cormorant Garamond',serif; font-size:2.2rem; margin-bottom:16px;">Thank You!</h2>
+      <p style="color:var(--text-secondary); margin-bottom:28px; font-size:1.05rem;">
+        Your order <strong style="color:var(--text-primary);">#{{ order.order_id|stringformat:"s"|slice:":8"|upper }}</strong> has been placed successfully.
+      </p>
+
+      <div style="background:var(--surface-alt); border-radius:18px; padding:24px; margin-bottom:32px; text-align:left;">
+        <p style="font-weight:700; margin-bottom:14px;">Order Details</p>
+        {% for item in order.items.all %}
+        <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--border);">
+          <p>{{ item.plan_name }} × {{ item.quantity }}</p>
+          <p style="font-weight:600;">${{ item.get_subtotal }}</p>
+        </div>
+        {% endfor %}
+        <div style="display:flex; justify-content:space-between; padding:14px 0 0; font-weight:700;">
+          <p>Total</p>
+          <p>${{ order.total }}</p>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
+        {% if user.is_authenticated %}
+        <a href="{% url 'dashboard' %}" class="button" style="margin-top:0;">View Dashboard</a>
+        {% endif %}
+        <a href="{% url 'home' %}" style="display:inline-flex; align-items:center; justify-content:center; padding:16px 32px; border-radius:18px; border:1px solid var(--border); color:var(--text-primary); font-weight:600; transition:var(--transition);">Back to Home</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,44 @@
+.contact-wrapper{
+  display:grid;
+  grid-template-columns:1fr 1.1fr;
+  gap:60px;align-items:start;
+}
+.contact-info{padding-top:8px;}
+.contact-info h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2rem,4vw,3rem);
+  line-height:1.08;letter-spacing:-.04em;
+  margin-bottom:18px;color:var(--text-primary);
+}
+.contact-info>p{
+  color:var(--text-secondary);
+  line-height:1.8;margin-bottom:36px;font-size:.97rem;
+}
+.contact-detail{
+  display:flex;align-items:flex-start;
+  gap:16px;margin-bottom:22px;
+}
+.contact-detail-icon{
+  width:46px;height:46px;border-radius:13px;
+  background:rgba(179,135,93,.1);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;color:var(--accent);
+}
+.contact-detail-text strong{
+  display:block;font-weight:600;
+  color:var(--text-primary);margin-bottom:3px;font-size:.92rem;
+}
+.contact-detail-text span{
+  color:var(--text-secondary);font-size:.88rem;line-height:1.6;
+}
+.contact-form-sticky{position:sticky;top:108px;}
+
+@media(max-width:860px){
+  .contact-wrapper{
+    grid-template-columns:1fr;gap:48px;
+  }
+  .contact-form-sticky{position:static;}
+}
+@media(max-width:560px){
+  .contact-detail-icon{width:40px;height:40px;}
+}

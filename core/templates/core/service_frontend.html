@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Atelier Aura | Frontend Development{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'core/assets/css/home.css' %}">{% endblock %}
+
+{% block content %}
+
+<section class="service-hero" style="background:#0f1117;">
+  <img src="{% static 'core/assets/images/service-2.jpg' %}" alt="Frontend Development" class="service-hero-bg">
+  <div class="container">
+    <p style="color:var(--accent);font-weight:700;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;margin-bottom:16px;">Frontend Development</p>
+    <h1>Code That Performs as Good as It Looks</h1>
+    <p>Beautiful design means nothing if it's slow, buggy, or breaks on mobile. We build pixel-perfect frontends that are fast, accessible, and engineered to scale — without compromise.</p>
+    <div class="hero-btns">
+      <a href="{% url 'plans' %}" class="btn-light">
+        See Our Plans
+        <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
+      </a>
+      <a href="{% url 'contact' %}" class="btn-ghost">Discuss Your Project</a>
+    </div>
+    <div class="tech-pills" style="margin-top:32px;">
+      <span class="tech-pill">React</span>
+      <span class="tech-pill">Next.js</span>
+      <span class="tech-pill">Vue.js</span>
+      <span class="tech-pill">TypeScript</span>
+      <span class="tech-pill">Tailwind CSS</span>
+      <span class="tech-pill">Django</span>
+      <span class="tech-pill">Node.js</span>
+      <span class="tech-pill">REST APIs</span>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding:70px 0;background:linear-gradient(to bottom,#f6f3ee,#efe7de);">
+  <div class="container">
+    <div class="results-row">
+      <div class="result-stat"><div class="num">100</div><p>Lighthouse performance score on every build</p></div>
+      <div class="result-stat"><div class="num">0</div><p>Accessibility violations on launch day</p></div>
+      <div class="result-stat"><div class="num">40%</div><p>Average bounce rate reduction after a rebuild</p></div>
+      <div class="result-stat"><div class="num">2×</div><p>Faster load times vs industry average</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section home-services">
+  <div class="container">
+    <h2>Frontend Excellence, End to End</h2>
+    <p class="services-intro">From interactive UIs to headless CMS integrations — we ship clean, maintainable code that your team can build on for years.</p>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon"><svg class="icon icon-lg" aria-hidden="true"><use href="#icon-zap"/></svg></div>
+        <h3>Core Web Vitals Optimized</h3>
+        <p>We engineer for LCP, FID, and CLS — the metrics Google rewards with higher rankings and users reward with conversions.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><svg class="icon icon-lg" aria-hidden="true"><use href="#icon-target"/></svg></div>
+        <h3>Pixel-Perfect Implementation</h3>
+        <p>Every component is built exactly to spec. No rounded corners, no misaligned grids — just flawless execution of your design.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><svg class="icon icon-lg" aria-hidden="true"><use href="#icon-link"/></svg></div>
+        <h3>API &amp; CMS Integration</h3>
+        <p>Headless CMS, REST APIs, GraphQL — we connect your frontend to any backend or data source with clean, documented code.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><svg class="icon icon-lg" aria-hidden="true"><use href="#icon-film"/></svg></div>
+        <h3>Micro-animations &amp; Interactions</h3>
+        <p>Purposeful motion design that delights users and communicates your brand's premium quality without slowing anything down.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><svg class="icon icon-lg" aria-hidden="true"><use href="#icon-mobile"/></svg></div>
+        <h3>Cross-Browser &amp; Device Testing</h3>
+        <p>Exhaustive testing across Chrome, Safari, Firefox, and Edge — on mobile, tablet, and desktop — before a single line ships.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><svg class="icon icon-lg" aria-hidden="true"><use href="#icon-package"/></svg></div>
+        <h3>Clean, Documented Codebase</h3>
+        <p>Well-structured, commented code with component libraries and documentation your team can maintain and extend confidently.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="container">
+    <h2>Ready for a Frontend That Actually Performs?</h2>
+    <p>Stop leaving performance — and revenue — on the table. Let's build something exceptional together.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:0;">
+      <a href="{% url 'plans' %}" class="btn-light" style="margin-top:36px;">
+        Choose Your Plan
+        <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
+      </a>
+      <a href="{% url 'contact' %}" class="btn-ghost" style="margin-top:36px;">Let's Talk Code</a>
+    </div>
+  </div>
+</section>
+{% endblock %}
